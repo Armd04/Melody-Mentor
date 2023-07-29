@@ -10,10 +10,14 @@ class CourseSerializer(serializers.ModelSerializer):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ['title', 'description', 'related_course', 'video_file', 'thumbnail']
+        fields = ['video_code', 'title', 'description', 'related_course', 'video_file', 'thumbnail']
 
-
-class UpdateCourse(serializers.ModelSerializer):
+class VideoDetailSeralizer(serializers.ModelSerializer):
     class Meta:
-        model = Course
-        fields = ['title', 'description', 'allowed_users']
+        model = Video
+        fields = ['video_code', 'title', 'description', 'related_course', 'thumbnail']
+
+class VideoFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = ['video_code', 'video_file']

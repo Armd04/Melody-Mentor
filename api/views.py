@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializers import CourseSerializer, VideoSerializer, UpdateCourse
+from .serializers import CourseSerializer, VideoSerializer, VideoDetailSeralizer, VideoFileSerializer
 from .models import Course, Video
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -38,9 +38,67 @@ class UpdateCourseView(APIView):
                 course.description = serializer.validated_data.get('description')
                 course.allowed_users.add(*new_users)
 
-                print(new_users.data)
-
                 course.save()
+
+                return Response({'Message':'Success'}, status=status.HTTP_200_OK)
+            return Response({'Not Found':'There is no course with this id'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request': 'Non proper request'})
+    
+class UpdateVideoDetailsView(APIView):
+    serializer_class = VideoDetailSeralizer
+
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+            self.request.session['is_authenticated'] = False
+
+        if not self.request.session.get('is_authenticated', False):
+            return Response({'Forbidden':'You have to login'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            video_code = serializer.validated_data.get('video_code')
+            
+            
+            queryset = Video.objects.filter(video_code=video_code)
+            if queryset.exists():
+                video = queryset.first()
+
+                video.title = serializer.validated_data.get('title', video.title)
+                video.description = serializer.validated_data.get('description', video.description)
+                video.thumbnail = serializer.validated_data.get('thumbnail', video.thumbnail)
+                video.video_file = serializer.validated_data.get('video_file', video.video_file.path)
+                video.related_course = serializer.validated_data.get('related_course', video.related_course)
+
+                video.save()
+
+                return Response({'Message':'Success'}, status=status.HTTP_200_OK)
+            return Response({'Not Found':'There is no course with this id'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Bad Request': 'Non proper request'})
+
+class UpdateVideoFileView(APIView):
+    serializer_class = VideoFileSerializer
+
+    def post(self, request, format=None):
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+            self.request.session['is_authenticated'] = False
+
+        if not self.request.session.get('is_authenticated', False):
+            return Response({'Forbidden':'You have to login'}, status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            video_code = serializer.validated_data.get('video_code')
+            
+            
+            queryset = Video.objects.filter(video_code=video_code)
+            if queryset.exists():
+                video = queryset.first()
+
+                video.video_file = serializer.validated_data.get('video_file')
+
+                video.save()
 
                 return Response({'Message':'Success'}, status=status.HTTP_200_OK)
             return Response({'Not Found':'There is no course with this id'}, status=status.HTTP_404_NOT_FOUND)

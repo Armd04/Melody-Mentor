@@ -16,6 +16,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(default='', max_length=100)),
+                ('video_code', models.CharField(default='', max_length=8)),
                 ('description', models.TextField()),
                 ('related_course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='related_videos', to='api.course')),
             ],
