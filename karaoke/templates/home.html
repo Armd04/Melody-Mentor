@@ -1,0 +1,8 @@
+{% for song in songs %}
+    <li>
+        {{ song.title }} - {{ song.artist }}
+        <audio controls>
+            <source src='{{ song.mp3_file.url }}' type='audio/mpeg'>
+        </audio>
+    </li>
+{% endfor %}
