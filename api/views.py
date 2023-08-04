@@ -19,9 +19,8 @@ class UpdateCourseView(APIView):
     def post(self, request, format=None):
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
-            self.request.session['is_authenticated'] = False
 
-        if not self.request.session.get('is_authenticated', False):
+        if not self.request.session.get('user_id', False):
             return Response({'Forbidden':'You have to login'}, status=status.HTTP_403_FORBIDDEN)
         
         serializer = self.serializer_class(data=request.data)
@@ -50,9 +49,8 @@ class UpdateVideoDetailsView(APIView):
     def post(self, request, format=None):
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
-            self.request.session['is_authenticated'] = False
 
-        if not self.request.session.get('is_authenticated', False):
+        if not self.request.session.get('user_id', False):
             return Response({'Forbidden':'You have to login'}, status=status.HTTP_403_FORBIDDEN)
         
         serializer = self.serializer_class(data=request.data)
@@ -82,9 +80,8 @@ class UpdateVideoFileView(APIView):
     def post(self, request, format=None):
         if not self.request.session.exists(self.request.session.session_key):
             self.request.session.create()
-            self.request.session['is_authenticated'] = False
 
-        if not self.request.session.get('is_authenticated', False):
+        if not self.request.session.get('user_id', False):
             return Response({'Forbidden':'You have to login'}, status=status.HTTP_403_FORBIDDEN)
         
         serializer = self.serializer_class(data=request.data)
