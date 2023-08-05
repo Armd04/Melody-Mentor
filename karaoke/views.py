@@ -39,6 +39,7 @@ class UpdateKaraokeSong(APIView):
             song.title = serializer.validated_data.get('title', song.title)
             song.artist = serializer.validated_data.get('artist', song.artist)
             song.lyrics = serializer.validated_data.get('lyrics', song.lyrics)
+            song.image = serializer.validated_data.get('image', song.image)
 
             if not serializer.validated_data.get('mp3_file') == None:
                 song.mp3_file = serializer.validated_data.get('mp3_file', song.mp3_file)
