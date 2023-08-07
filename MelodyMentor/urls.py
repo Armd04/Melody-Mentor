@@ -24,6 +24,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('api/', include('api.urls')),
     path('karaoke-api/', include('karaoke.urls')),
+    path('blog-api/', include('blog.urls')),
 ]
 
 if settings.DEBUG:

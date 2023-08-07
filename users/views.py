@@ -106,7 +106,7 @@ class LoggedInView(APIView):
             self.request.session.create()
         
         if self.request.session.get('user_id', False):
-            user = User.objects.filter(id=self.request.session.get('user_id')).first()
+            user = self.request.user
             profile = Profile.objects.filter(user=user).first()
             return Response(UserSerializer(profile).data, status=status.HTTP_200_OK)
         
@@ -120,7 +120,7 @@ class LoggedInInfoView(APIView):
             self.request.session.create()
         
         if self.request.session.get('user_id', False):
-            user = User.objects.filter(id=self.request.session.get('user_id')).first()
+            user = self.request.user
             return Response(UserInfoSerializer(user).data, status=status.HTTP_200_OK)
         
         else:
@@ -133,7 +133,7 @@ class LogoutView(APIView):
             self.request.session.create()
         
         if self.request.session.get('user_id', False):
-            user = User.objects.filter(id=self.request.session.get('user_id')).first()
+            user = self.request.user
             logout(request=request)
             self.request.session['user_id'] = None
             return Response({'Message': 'Logout successful'}, status=status.HTTP_200_OK)

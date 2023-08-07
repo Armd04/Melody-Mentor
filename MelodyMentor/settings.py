@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'frontend.apps.FrontendConfig',
     'users.apps.UsersConfig',
     'karaoke.apps.KaraokeConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -140,4 +141,8 @@ EMAIL_TLS = False
 EMAIL_USE_SSL = True
 EMAIL_HOST_USER = 'mohaghegh.ar82@gmail.com'
 EMAIL_HOST_PASSWORD = 'obbagmywbbfvcsuj'
+
+LOGIN_URL = '/users/login'
+
+LOGIN_REDIRECT_URL = ''
 

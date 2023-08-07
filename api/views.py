@@ -1,19 +1,24 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from rest_framework import generics, status
 from .serializers import CourseSerializer, VideoSerializer, VideoDetailSeralizer, VideoFileSerializer
 from .models import Course, Video
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-class CreateCourseView(generics.CreateAPIView):
+class If_is_staff(LoginRequiredMixin, UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
+
+class CreateCourseView(If_is_staff, LoginRequiredMixin, generics.CreateAPIView):
     model = Course
     serializer_class = CourseSerializer
 
-class CreateVideoView(generics.CreateAPIView):
+class CreateVideoView(If_is_staff, LoginRequiredMixin, generics.CreateAPIView):
     model = Video
     serializer_class = VideoSerializer
 
-class UpdateCourseView(APIView):
+class UpdateCourseView(If_is_staff, LoginRequiredMixin, APIView):
     serializer_class = CourseSerializer
 
     def post(self, request, format=None):
@@ -43,7 +48,7 @@ class UpdateCourseView(APIView):
             return Response({'Not Found':'There is no course with this id'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'Non proper request'})
     
-class UpdateVideoDetailsView(APIView):
+class UpdateVideoDetailsView(If_is_staff, LoginRequiredMixin, APIView):
     serializer_class = VideoDetailSeralizer
 
     def post(self, request, format=None):
@@ -74,7 +79,7 @@ class UpdateVideoDetailsView(APIView):
             return Response({'Not Found':'There is no course with this id'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'Non proper request'})
 
-class UpdateVideoFileView(APIView):
+class UpdateVideoFileView(If_is_staff, LoginRequiredMixin, APIView):
     serializer_class = VideoFileSerializer
 
     def post(self, request, format=None):
