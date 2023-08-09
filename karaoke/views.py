@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from api.views import If_is_staff
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import KaraokeSongSerializer
+from .serializers import KaraokeSongSerializer, KaraokeSongAllSerializer
 from .models import KaraokeSong
 
 def home(request):
@@ -10,11 +12,11 @@ def home(request):
     return render(request, 'home.html', {'songs':songs})
 
 
-class CreateKaraokeSong(generics.CreateAPIView):
+class CreateKaraokeSong(If_is_staff, LoginRequiredMixin, generics.CreateAPIView):
     model = KaraokeSong
     serializer_class = KaraokeSongSerializer
 
-class UpdateKaraokeSong(APIView):
+class UpdateKaraokeSong(If_is_staff, LoginRequiredMixin, APIView):
     serializer_class = KaraokeSongSerializer
 
     def post(self, request, format=None):
@@ -51,3 +53,23 @@ class UpdateKaraokeSong(APIView):
 
         return Response({'Bad Request': 'Non proper request'})
 
+class GetAllKaraokeSongs(APIView):
+    serializer_class = KaraokeSongAllSerializer
+    def get(self, request, format=None):
+        queryset = KaraokeSong.objects.all()
+
+        serializer = self.serializer_class(queryset, many=True)
+
+        return Response(serializer.data)
+    
+class SongDetails(APIView):
+    serializer_class = KaraokeSongAllSerializer
+    def get(self, request, code):
+        queryset = KaraokeSong.objects.filter(song_code=code)
+
+        if not queryset.exists():
+            return Response({'Not Found':'There is no song with this code found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        song = queryset.first()
+
+        return Response(self.serializer_class(song).data)

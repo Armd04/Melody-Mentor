@@ -1,7 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from rest_framework import generics, status
-from .serializers import CourseSerializer, VideoSerializer, VideoDetailSeralizer, VideoFileSerializer
+from .serializers import (CourseSerializer,
+                        VideoSerializer, 
+                        VideoDetailSeralizer, 
+                        VideoFileSerializer, 
+                        CourseAllSerializer,
+                        VideoAllSerializer)
 from .models import Course, Video
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -105,3 +110,41 @@ class UpdateVideoFileView(If_is_staff, LoginRequiredMixin, APIView):
                 return Response({'Message':'Success'}, status=status.HTTP_200_OK)
             return Response({'Not Found':'There is no course with this id'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'Bad Request': 'Non proper request'})
+    
+class VideosOfACourse(APIView):
+    serializer_class = VideoSerializer
+    def get(self, request, num):
+        queryset = Course.objects.filter(course_number=num)
+
+        if not queryset.exists():
+            return Response({'Not Found':'A course with this number has not been found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        course = queryset.first()
+        queryset = Video.objects.filter(related_course=course)
+        serializer = self.serializer_class(queryset, many=True)
+
+        return Response(serializer.data)
+    
+class VideoDetails(APIView):
+    serializer_class = VideoAllSerializer
+    def get(self, request, code):
+        queryset = Video.objects.filter(video_code=code)
+
+        if not queryset.exists():
+            return Response({'Not Found':'A video with this code has not been found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        video = queryset.first()
+
+        return Response(self.serializer_class(video).data)
+    
+class CourseDetails(APIView):
+    serializer_class = CourseAllSerializer
+    def get(self, request, num):
+        queryset = Course.objects.filter(course_number=num)
+
+        if not queryset.exists():
+            return Response({'Not Found':'A course with this number has not been found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        course = queryset.first()
+
+        return Response(self.serializer_class(course).data)

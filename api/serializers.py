@@ -21,3 +21,13 @@ class VideoFileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
         fields = ['video_code', 'video_file']
+
+class CourseAllSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+class VideoAllSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        fields = '__all__'

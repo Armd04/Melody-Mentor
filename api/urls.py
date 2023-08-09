@@ -5,7 +5,10 @@ from .views import (CreateCourseView,
                     CreateVideoView,
                     UpdateCourseView,
                     UpdateVideoDetailsView,
-                    UpdateVideoFileView)
+                    UpdateVideoFileView,
+                    VideosOfACourse,
+                    VideoDetails,
+                    CourseDetails)
 
 
 urlpatterns = [
@@ -14,6 +17,9 @@ urlpatterns = [
     path('update-course/', UpdateCourseView.as_view()),
     path('update-video/', UpdateVideoDetailsView.as_view()),
     path('update-video-file/', UpdateVideoFileView.as_view()),
+    path('course-videos/<int:num>/', VideosOfACourse.as_view()),
+    path('video/<str:code>/', VideoDetails.as_view()),
+    path('course/<int:num>/', CourseDetails.as_view()),
 ]
 
 if settings.DEBUG:
