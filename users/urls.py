@@ -6,7 +6,9 @@ from .views import (LoginView,
                     ProfilesView,
                     LoggedInView,
                     LogoutView,
-                    LoggedInInfoView)
+                    LoggedInInfoView,
+                    ForgotPasswordView,
+                    ResetPasswordView)
 
 urlpatterns = [
     path('login/', LoginView.as_view()),
@@ -15,6 +17,8 @@ urlpatterns = [
     path('logged-in/', LoggedInView.as_view()),
     path('logged-in-info/', LoggedInInfoView.as_view()),
     path('logout/', LogoutView.as_view()),
+    path('forgot-password/', ForgotPasswordView.as_view()),
+    path('reset-password/<uidb64>/<token>/', ResetPasswordView.as_view()),
 ]
 
 if settings.DEBUG:

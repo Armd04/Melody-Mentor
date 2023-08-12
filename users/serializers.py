@@ -23,3 +23,10 @@ class UserInfoSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email']
 
+class PasswordResetSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+class NewPasswordSerializer(serializers.Serializer):
+    password = serializers.CharField()
+    confirm_password = serializers.CharField()       
+
