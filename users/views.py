@@ -99,7 +99,15 @@ class RegisterView(APIView):
 
             profile = Profile(user=user, image=image)
             profile.save()
-            print(password)
+            email_body = render_to_string('register_email.html', {
+                'user':user
+            })
+            send_mail('Welcome to Avamouz',
+                      email_body,
+                      'mohaghegh.ar82@gmail.com',
+                      [user.email],
+                      html_message=email_body,
+                      fail_silently=False)
             return Response({'Message':'Success'}, status=status.HTTP_201_CREATED)
         
         return Response({'Bad Request': 'Non proper request'})
@@ -167,7 +175,6 @@ class ForgotPasswordView(APIView):
                       [user.email],
                       html_message=email_body,
                       fail_silently=False)
-            # Send email
             return Response({'message':'Password reset email sent'})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
