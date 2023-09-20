@@ -1,0 +1,49 @@
+<div class="fullscreen-bg">
+  <img src="../../../../assets/img/Register Pagereg.png" alt="Background Image">
+</div>
+<div class="container form-cont">
+  <form>
+    <div class="row center-block text-center mb-5">
+      <h4>لطفا فرم ثبت نام را پر کنید!</h4>
+    </div>
+    <div class="row mb-2">
+      <label class="label-text" for="username">نام کاربری:</label>
+    </div>
+    <div class="row mb-2">
+      <input class="input-text" name="username" id="username" type="text" />
+    </div>
+    <div class="row mb-2">
+      <label class="label-text" for="email">ایمیل/شماره تلفن همراه:</label>
+    </div>
+    <div class="row mb-2">
+      <input class="input-text" name="email" id="email" type="text" />
+    </div>
+    <div class="row mb-2">
+      <label class="label-text" for="password">رمز عبور:
+        <button class="view-icon .bg-transparent btn" type="button" (click)="changePasswordState()"></button>
+      </label>
+    </div>
+    <div class="row mb-2">
+      <input class="input-text" name="password" id="password" [attr.type]="passwordIsShow" />
+    </div>
+    <div class="row mb-2">
+      <label class="label-text" for="passwordConfirm">تکرار رمز عبور:
+        <button class="view-icon .bg-transparent btn fix-position" type="button"
+          (click)="changePasswordState()"></button>
+      </label>
+    </div>
+    <div class="row mb-5">
+      <input class="input-text" name="passwordConfirm" id="passwordConfirm" [attr.type]="passwordIsShow" />
+    </div>
+    <div class="row mb-2">
+      <button type="button" class="btn btn-primary submit-btn">ثبت نام</button>
+    </div>
+    <div class="row center-block text-center mb-4 mt-2">
+      <label class="label-text">اکانت دارید؟ <a routerLink="/register" routerLinkActive="true" class="register-txt">وارد
+          شوید</a></label>
+    </div>
+    <div class="row center-block text-center">
+      <img src="../../../../assets/img/Social media icons.svg" class="social-icon" />
+    </div>
+  </form>
+</div>

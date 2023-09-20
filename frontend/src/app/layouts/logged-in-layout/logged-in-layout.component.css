@@ -1,0 +1,59 @@
+.nav-brand {
+  text-align: center;
+  color: #194F94;
+  font-size: 1.4rem;
+  font-family: Estedad;
+  font-weight: 700;
+  line-height: 1.3rem;
+  word-wrap: break-word;
+  margin-left: 0.5rem;
+}
+
+.nav-link-text {
+  color: #00122A !important;
+  font-size: 1.25rem;
+  font-family: Vazir;
+  font-weight: 600;
+}
+
+.btn-register {
+  background-image: linear-gradient(#FF681D, #FF6060);
+  border-radius: 3em;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+}
+
+.btn-login {
+  background-color: #fff;
+  border-radius: 3em;
+  color: #00122A;
+  font-weight: 600;
+  border: 0.2rem solid #FF681D;
+}
+
+.user-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-family: Vazir;
+  color: #194F94;
+}
+
+/* .sixth {
+  border-color: $green;
+  color: $green;
+
+  background: {
+    image: linear-gradient(to bottom, transparent 50%, $green 50%);
+    position: 0% 0%;
+    size: 210%;
+  }
+
+  transition: background 150ms ease-in-out,
+  color 150ms ease-in-out;
+
+  &:hover {
+    color: #fff;
+    background-position: 0 100%;
+  }
+} */

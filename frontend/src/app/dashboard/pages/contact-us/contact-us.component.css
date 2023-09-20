@@ -1,0 +1,16 @@
+.fullscreen-bg {
+  position: fixed;
+  top: 3.975rem;
+  left: 0;
+  width: 25%;
+  height: 95%;
+  z-index: -1;
+  /* Make sure the image stays in the background */
+  overflow: hidden;
+}
+
+.fullscreen-bg img {
+  width: 100%;
+  height: 100%;
+  object-position: center center;
+}

@@ -1,0 +1,37 @@
+<div class="fullscreen-bg">
+  <img src="../../../../assets/img/Login-background.png" alt="Background Image">
+</div>
+<div class="container form-cont">
+  <form>
+    <div class="row center-block text-center mb-3">
+      <h3>خوش آمدید!</h3>
+    </div>
+    <div class="row mb-2">
+      <label class="label-text" for="username">نام کاربری:</label>
+    </div>
+    <div class="row mb-3">
+      <input class="input-text" name="username" id="username" type="text" />
+    </div>
+    <div class="row mb-2">
+      <label class="label-text" for="password">رمز عبور:
+        <button class="view-icon .bg-transparent btn" type="button" (click)="changePasswordState()"></button>
+      </label>
+    </div>
+    <div class="row mb-1">
+      <input class="input-text" name="password" id="password" [attr.type]="passwordIsShow" />
+    </div>
+    <div class="row mb-4">
+      <a class="link-text" routerLink="/forgot" routerLinkActive="true">فراموشی رمز عبور ؟</a>
+    </div>
+    <div class="row mb-2">
+      <button type="button" class="btn btn-primary submit-btn">ورود</button>
+    </div>
+    <div class="row center-block text-center mb-4 mt-2">
+      <label class="label-text">اکانت ندارید؟ <a routerLink="/register" routerLinkActive="true" class="register-txt">ثبت
+          نام</a> کنید</label>
+    </div>
+    <div class="row center-block text-center">
+      <img src="../../../../assets/img/Social media icons.svg" class="social-icon" />
+    </div>
+  </form>
+</div>

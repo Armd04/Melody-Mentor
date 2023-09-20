@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-5 fixed">
+  <!-- Image and text -->
+  <a class="navbar-brand">
+    <img src="../../../assets/img/logo.png" height="35" class="d-inline-block align-bottom" alt="">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav mx-3">
+      <a class="nav-item nav-link nav-link-text mx-2" routerLink="'/home'" routerLinkActive="true">خانه</a>
+      <a class="nav-item nav-link nav-link-text mx-2" routerLink="'/home'" routerLinkActive="true">دوره ها</a>
+      <a class="nav-item nav-link nav-link-text mx-2" routerLink="'/home'" routerLinkActive="true">بلاگ</a>
+      <a class="nav-item nav-link nav-link-text mx-2" routerLink="'/home'" routerLinkActive="true">درباره ما</a>
+    </div>
+  </div>
+  <form class="form-inline">
+    <button class="btn px-3 py-1 pb-2 mx-1 btn-register" type="button">
+        <label>ورود</label>
+    </button>
+    <button class="btn px-4 py-1 pb-2 mx-1 btn-register" type="button">
+      <label>ثبت نام</label>
+    </button>
+  </form>
+</nav>
+<router-outlet></router-outlet>
